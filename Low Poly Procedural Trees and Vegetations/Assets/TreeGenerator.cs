@@ -89,12 +89,13 @@ namespace TreeGen
             if (branch.Children == null || branch.Children.Count == 0)
                 {
                     Material m = new Material(s);
-                    Foliages.Add(CreateFoliage(data, branch.To, m));
+                    Foliages.Add(CreateFoliage(data, branch, m));
                 }
 
             });
 
             var mesh = new Mesh();
+            mesh.MarkDynamic();
             mesh.vertices = vertices.ToArray();
             mesh.normals = normals.ToArray();
             mesh.tangents = tangents.ToArray();
@@ -149,14 +150,17 @@ namespace TreeGen
             action(from);
         }
 
-        static GameObject CreateFoliage(TreeData data, Vector3 Pos, Material Mat)
+        static GameObject CreateFoliage(TreeData data, TreeBranch Branch, Material Mat)
         {
             Mesh m = MeshDraft.Sphere(0.5f, data.foliageSegments, data.foliageSegments, true).ToMesh();
+            m.MarkDynamic();
             m.AutoWeldMesh(0.0001f, 0.4f);
             Vector3[] verts = m.vertices;
             float currentNoise = data.noise;
             currentNoise *= 0.25f;
-            int s = data.randomSeed + Mathf.RoundToInt(Pos.x) +Mathf.RoundToInt(Pos.y) + Mathf.RoundToInt(Pos.z);
+            Vector3 Pos = Branch.To;
+
+            int s = data.randomSeed + Mathf.RoundToInt(Pos.x*100) +Mathf.RoundToInt(Pos.y*100) + Mathf.RoundToInt(Pos.z*100) + Mathf.RoundToInt(Branch.Length);
             UnityEngine.Random.InitState(s);
             for (int i = 0; i < verts.Length; i++)
             {
