@@ -12,17 +12,10 @@ public class Test : MonoBehaviour {
  
     void Start () {
         data = new TreeData();
-        data.Setup();
         data.RandomiseParameters();
-        TreeGenManager.instance.GetTree(transform.position, data, s, GetTreecallBack);
+        tree = TreeGenerator.Build(transform.position,data,s);
 
 	}
-
-    public void GetTreecallBack(GameObject tree)
-    {
-        this.tree = tree;
-    }
-
 
     private void Update()
     {
@@ -30,7 +23,7 @@ public class Test : MonoBehaviour {
         {
             if (tree != null) Destroy(tree);
             data.RandomiseParameters();
-            TreeGenManager.instance.GetTree(transform.position, data, s, GetTreecallBack);
+            tree = TreeGenerator.Build(transform.position,data, s);
         }
     }
 }
