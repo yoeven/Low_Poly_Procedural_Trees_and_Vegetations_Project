@@ -12,9 +12,9 @@ namespace TreeGen
     {
         const float PI2 = Mathf.PI * 2f;
 
-        public static GameObject Build(Vector3 Position, TreeData data, Shader s)
+        public static void Build(Vector3 Position, TreeData data, Shader s,Action<GameObject> callback)
         {
-            data.Setup();
+            //data.Setup();
 
             var root = new TreeBranch(
                 data.generations,
@@ -124,7 +124,7 @@ namespace TreeGen
 
             treeObject.transform.position = Position;
 
-            return treeObject;
+            callback(treeObject);
         }
 
         static float TraverseMaxLength(TreeBranch branch)
@@ -221,7 +221,7 @@ namespace TreeGen
             this.from = from;
 
             var scale = Mathf.Lerp(1f, data.growthAngleScale, 1f - 1f * generation / generations);
-            var rotation = Quaternion.AngleAxis(scale * data.GetRandomGrowthAngle(), normal) * Quaternion.AngleAxis(scale * data.GetRandomGrowthAngle(), binormal);
+            var rotation = Quaternion.AngleAxis(scale * data.RandomGrowthAngleVal, normal) * Quaternion.AngleAxis(scale * data.RandomGrowthAngleVal, binormal);
             this.to = from + rotation * tangent * length;
 
             this.length = length;
@@ -234,7 +234,7 @@ namespace TreeGen
             children = new List<TreeBranch>();
             if (generation > 0)
             {
-                int count = data.GetRandomBranches();
+                int count = data.RandomBranchesVal;
                 for (int i = 0; i < count; i++)
                 {
                     float ratio;
@@ -293,7 +293,7 @@ namespace TreeGen
             var points = new List<Vector3>();
 
             var length = (to - from).magnitude;
-            var bend = length * (normal * data.GetRandomBendDegree() + binormal * data.GetRandomBendDegree());
+            var bend = length * (normal * data.RandomBendDegreeVal + binormal * data.RandomBendDegreeVal);
             points.Add(from);
             points.Add(Vector3.Lerp(from, to, 0.25f) + bend);
             points.Add(Vector3.Lerp(from, to, 0.75f) + bend);
