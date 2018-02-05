@@ -7,8 +7,7 @@ A simple low poly procedural tree builder.
 
 ![](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example2.jpg)
 
-![10000 Trees](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example2%2810000%29.jpg)
-
+![10000 Trees](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example2%2810000%29.jpg)10000 Trees
 # Features
 
   - Safe threading support for fast creation.
@@ -68,5 +67,5 @@ MIT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbOTk5NDU1Mjc0XX0=
+eyJoaXN0b3J5IjpbMjAxMDk1MzQ1Nl19
 -->
