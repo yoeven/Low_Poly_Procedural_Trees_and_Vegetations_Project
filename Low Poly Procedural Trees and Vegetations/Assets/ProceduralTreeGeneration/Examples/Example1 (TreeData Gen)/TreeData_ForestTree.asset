@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449a255f1893cf04c8f4e4e75a2f02b3, type: 3}
+  m_Name: TreeData_ForestTree
+  m_EditorClassIdentifier: 
+  TreeName: Forest Tree
+  randomSeed: 1292
+  lengthAttenuation: 0.856
+  radiusAttenuation: 0.5
+  branchesMin: 0
+  branchesMax: 0
+  growthAngleMin: -15
+  growthAngleMax: 15
+  growthAngleScale: 4
+  heightSegments: 10
+  radialSegments: 8
+  bendDegree: 0.1
+  generations: 5
+  length: 2.49
+  radius: 0.15
+  foliageSegments: 10
+  noise: 0.2
+  foliageScaleMin: 1
+  foliageScaleMax: 3
+  branchColor: {r: 0.5411765, g: 0.37254903, b: 0.30588236, a: 1}
+  foliageColor: {r: 0.24313726, g: 0.41960785, b: 0.30588236, a: 1}
+  RandomBranches: 0
+  RandomGrowthAngle: -0.86406994
+  RandomBendDegree: 0.06659629
