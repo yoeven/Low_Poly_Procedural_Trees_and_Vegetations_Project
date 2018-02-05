@@ -12,9 +12,9 @@ namespace TreeGen
     {
         const float PI2 = Mathf.PI * 2f;
 
-        public static GameObject Build(Vector3 Position, TreeData data, Shader s)
+        public static void Build(TreeThreadReturnData ReturnData)
         {
-            data.Setup();
+            TreeData data = ReturnData.TreeData;
 
             var root = new TreeBranch(
                 data.generations,
@@ -29,10 +29,9 @@ namespace TreeGen
             var uvs = new List<Vector2>();
             var triangles = new List<int>();
 
-            List<GameObject> Foliages = new List<GameObject>();
+            List<MeshObjectData> Foliages = new List<MeshObjectData>();
 
             float maxLength = TraverseMaxLength(root);
-
             Traverse(root, (branch) =>
             {
                 var offset = vertices.Count;
@@ -88,44 +87,33 @@ namespace TreeGen
             //plants
             if (branch.Children == null || branch.Children.Count == 0)
                 {
-                    Material m = new Material(s);
-                    Foliages.Add(CreateFoliage(data, branch, m));
+                    Foliages.Add(CreateFoliage(data, branch, Foliages.Count));
                 }
 
             });
 
-            var mesh = new Mesh();
-            mesh.MarkDynamic();
-            mesh.vertices = vertices.ToArray();
-            mesh.normals = normals.ToArray();
-            mesh.tangents = tangents.ToArray();
-            mesh.uv = uvs.ToArray();
-            mesh.triangles = triangles.ToArray();
 
-            mesh.flatShade();
+            MeshObjectData TreeMeshData = new MeshObjectData();
 
-            Color[] treecolor = new Color[mesh.vertices.Length];
+            TreeMeshData.vertices = vertices.ToArray();
+            TreeMeshData.triangles = triangles.ToArray();
+            TreeMeshData.position = ReturnData.TreePos;
 
-            for (int i = 0; i < mesh.vertices.Length; i++)
+            TreeMeshData.flatShade();
+
+            Color[] treecolor = new Color[TreeMeshData.vertices.Length];
+
+            for (int i = 0; i < TreeMeshData.vertices.Length; i++)
             {
                 treecolor[i] = data.branchColor;
             }
 
-            mesh.colors = treecolor;
+            TreeMeshData.colors = treecolor;
 
-            GameObject treeObject = new GameObject();
-            treeObject.AddComponent<MeshFilter>().mesh = mesh;
-            treeObject.AddComponent<MeshRenderer>();
-            treeObject.GetComponent<Renderer>().material = new Material(s);
+            ReturnData.TreeBuildData = TreeMeshData;
 
-            for (int i = 0; i < Foliages.Count; i++)
-            {
-                Foliages[i].transform.SetParent(treeObject.transform);
-            }
-
-            treeObject.transform.position = Position;
-
-            return treeObject;
+            ReturnData.FoliagesBuildData = Foliages.ToArray();
+            ReturnData.ManagerCallBack(ReturnData);
         }
 
         static float TraverseMaxLength(TreeBranch branch)
@@ -150,42 +138,42 @@ namespace TreeGen
             action(from);
         }
 
-        static GameObject CreateFoliage(TreeData data, TreeBranch Branch, Material Mat)
+        static MeshObjectData CreateFoliage(TreeData data, TreeBranch Branch,int index)
         {
-            Mesh m = MeshDraft.Sphere(0.5f, data.foliageSegments, data.foliageSegments, true).ToMesh();
-            m.MarkDynamic();
-            m.AutoWeldMesh(0.0001f, 0.4f);
-            Vector3[] verts = m.vertices;
+            MeshDraft m = MeshDraft.Sphere(0.5f, data.foliageSegments, data.foliageSegments, false);
+            MeshObjectData plant = new MeshObjectData();
+
+            plant.vertices = m.vertices.ToArray();
+            plant.triangles = m.triangles.ToArray();
+            plant.tangents = m.tangents.ToArray();
+            plant.AutoWeldMesh(0.0001f, 0.4f);
+
+            Vector3[] verts = plant.vertices;
             float currentNoise = data.noise;
             currentNoise *= 0.25f;
             Vector3 Pos = Branch.To;
+            plant.position = Pos;
 
-            int s = data.randomSeed + Mathf.RoundToInt(Pos.x*100) +Mathf.RoundToInt(Pos.y*100) + Mathf.RoundToInt(Pos.z*100) + Mathf.RoundToInt(Branch.Length);
-            UnityEngine.Random.InitState(s);
+            int s = data.randomSeed +index+ Mathf.RoundToInt(Pos.x*100) +Mathf.RoundToInt(Pos.y*100) + Mathf.RoundToInt(Pos.z*100) + Mathf.RoundToInt(Branch.Length);
+            Rand r = new Rand(s);
             for (int i = 0; i < verts.Length; i++)
             {
-                verts[i].x += UnityEngine.Random.Range(-currentNoise, currentNoise);
-                verts[i].y += UnityEngine.Random.Range(-currentNoise, currentNoise);
-                verts[i].z += UnityEngine.Random.Range(-currentNoise, currentNoise);
+                verts[i].x += r.Range (-currentNoise,currentNoise);
+                verts[i].y += r.Range (-currentNoise, currentNoise);
+                verts[i].z += r.Range (-currentNoise, currentNoise);
             }
-            m.vertices = verts;
-            m.flatShade();
 
-            Color[] vertexColor = new Color[m.vertices.Length];
-            for (int i = 0; i < m.vertices.Length; i++)
+            plant.vertices = verts;
+
+            plant.flatShade();
+
+            Color[] vertexColor = new Color[plant.vertices.Length];
+            for (int c = 0; c < plant.vertices.Length; c++)
             {
-                vertexColor[i] = data.foliageColor;
+                vertexColor[c] = data.foliageColor;
             }
-
-            m.colors = vertexColor;
-
-            GameObject Foliage = new GameObject();
-            Foliage.AddComponent<MeshFilter>().mesh = m;
-            Foliage.AddComponent<MeshRenderer>();
-            Foliage.GetComponent<Renderer>().material = Mat;
-            Foliage.transform.localScale *= UnityEngine.Random.Range(data.foliageScaleMin, data.foliageScaleMax);
-            Foliage.transform.position = Pos;
-            return Foliage;
+            plant.colors = vertexColor;
+            return plant;
         }
     }
 
@@ -225,7 +213,7 @@ namespace TreeGen
             this.from = from;
 
             var scale = Mathf.Lerp(1f, data.growthAngleScale, 1f - 1f * generation / generations);
-            var rotation = Quaternion.AngleAxis(scale * data.GetRandomGrowthAngle(), normal) * Quaternion.AngleAxis(scale * data.GetRandomGrowthAngle(), binormal);
+            var rotation = Quaternion.AngleAxis(scale * data.RandomGrowthAngle, normal) * Quaternion.AngleAxis(scale * data.RandomGrowthAngle, binormal);
             this.to = from + rotation * tangent * length;
 
             this.length = length;
@@ -238,7 +226,7 @@ namespace TreeGen
             children = new List<TreeBranch>();
             if (generation > 0)
             {
-                int count = data.GetRandomBranches();
+                int count = data.RandomBranches;
                 for (int i = 0; i < count; i++)
                 {
                     float ratio;
@@ -297,7 +285,7 @@ namespace TreeGen
             var points = new List<Vector3>();
 
             var length = (to - from).magnitude;
-            var bend = length * (normal * data.GetRandomBendDegree() + binormal * data.GetRandomBendDegree());
+            var bend = length * (normal * data.RandomBendDegree + binormal * data.RandomBendDegree);
             points.Add(from);
             points.Add(Vector3.Lerp(from, to, 0.25f) + bend);
             points.Add(Vector3.Lerp(from, to, 0.75f) + bend);
@@ -338,4 +326,34 @@ namespace TreeGen
         }
     }
 
+}
+
+public class Rand
+{
+    System.Random rnd;
+
+    public float value
+    {
+        get
+        {
+            return (float)rnd.NextDouble();
+        }
+    }
+
+    public Rand(int seed)
+    {
+        rnd = new System.Random(seed);
+    }
+
+    public int Range(int a, int b)
+    {
+        var v = value;
+        return Mathf.FloorToInt(Mathf.Lerp(a, b, v));
+    }
+
+    public float Range(float a, float b)
+    {
+        var v = value;
+        return Mathf.Lerp(a, b, v);
+    }
 }

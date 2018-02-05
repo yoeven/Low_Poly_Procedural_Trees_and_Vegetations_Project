@@ -10,6 +10,22 @@ using UnityEngine;
 
 public static class FlatShader
 {
+
+
+    public static void flatShade(this MeshObjectData mesh)
+    {
+        Vector3[] oldVerts = mesh.vertices;
+        int[] triangles = mesh.triangles;
+        Vector3[] vertices = new Vector3[triangles.Length];
+        for (int i = 0; i < triangles.Length; i++)
+        {
+            vertices[i] = oldVerts[triangles[i]];
+            triangles[i] = i;
+        }
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+    }
+
     public static void flatShade(this Mesh mesh)
     {
         Vector3[] oldVerts = mesh.vertices;

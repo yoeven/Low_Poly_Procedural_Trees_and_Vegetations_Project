@@ -6,24 +6,26 @@ using TreeGen;
 public class Test : MonoBehaviour {
 
     public TreeData data;
-    public Shader s;
-    GameObject tree;
+    List<GameObject> trees;
 
- 
     void Start () {
-        data = new TreeData();
-        data.RandomiseParameters();
-        tree = TreeGenerator.Build(transform.position,data,s);
+        trees = new List<GameObject>();
 
+        for(int i = 0; i<10;i++)
+        {
+            for (int y = 0; y <10; y++)
+            {
+                TreeData newData = ScriptableObject.CreateInstance<TreeData>();
+                newData.RandomiseParameters();
+                TreeGeneratorManager.instance.RequestTree(newData, new Vector3(i * 10, 0, y * 10), callback);
+            }
+        }
 	}
 
-    private void Update()
+    public void callback(GameObject g)
     {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            if (tree != null) Destroy(tree);
-            data.RandomiseParameters();
-            tree = TreeGenerator.Build(transform.position,data, s);
-        }
+        trees.Add(g);
     }
+
+ 
 }

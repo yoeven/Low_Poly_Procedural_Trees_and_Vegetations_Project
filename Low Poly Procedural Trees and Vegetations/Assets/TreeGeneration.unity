@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 343388182}
   - component: {fileID: 343388181}
   - component: {fileID: 343388180}
+  - component: {fileID: 343388184}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -194,6 +195,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &343388184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 343388179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40eface65803bb242b76c9a97a3d3c04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: d051d5857f6ab524a91669d5a44bf94a, type: 2}
 --- !u!1 &977211334
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +215,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 977211336}
-  - component: {fileID: 977211335}
+  - component: {fileID: 977211337}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -210,19 +223,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &977211335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 977211334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40eface65803bb242b76c9a97a3d3c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: d051d5857f6ab524a91669d5a44bf94a, type: 2}
-  s: {fileID: 4800000, guid: ed30f33ca046d494cb8f02a356e97613, type: 3}
 --- !u!4 &977211336
 Transform:
   m_ObjectHideFlags: 0
@@ -236,6 +236,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &977211337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 977211334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02341f74a92ac4f47a778167a59e5a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxThreads: 1
+  vertexShader: {fileID: 4800000, guid: 40dd86119e3f8e74d8f7d84425c926aa, type: 3}
 --- !u!1 &1214069828
 GameObject:
   m_ObjectHideFlags: 0

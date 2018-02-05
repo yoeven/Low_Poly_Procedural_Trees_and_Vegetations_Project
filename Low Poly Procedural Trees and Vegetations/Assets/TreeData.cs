@@ -34,30 +34,38 @@ namespace TreeGen
         public Color branchColor;
         public Color foliageColor;
 
+
+        public int RandomBranches;
+        public float RandomGrowthAngle;
+        public float RandomBendDegree;
+
+
         public void Setup()
         {
             Random.InitState(randomSeed);
+            GetRandomBranches();
+            GetRandomGrowthAngle();
+            GetRandomBendDegree();
         }
 
-        public int GetRandomBranches()
+        public void GetRandomBranches()
         {
-            return Random.Range(branchesMin, branchesMax + 1);
+            RandomBranches =  Random.Range(branchesMin, branchesMax + 1);
         }
 
-        public float GetRandomGrowthAngle()
+        public void GetRandomGrowthAngle()
         {
-            return Random.Range(growthAngleMin, growthAngleMax);
+            RandomGrowthAngle =  Random.Range(growthAngleMin, growthAngleMax);
         }
 
-        public float GetRandomBendDegree()
+        public void GetRandomBendDegree()
         {
-            return Random.Range(-bendDegree, bendDegree);
+            RandomBendDegree =  Random.Range(-bendDegree, bendDegree);
         }
 
         public void RandomiseParameters()
         {
             randomSeed = Random.Range(0, int.MaxValue);
-            Debug.Log(randomSeed);
             Random.InitState(randomSeed);
             randomiseParameters();
         }
