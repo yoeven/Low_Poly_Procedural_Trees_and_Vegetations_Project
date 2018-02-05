@@ -11,7 +11,7 @@ A simple low poly procedural tree builder.
 # Features
 
   - Safe threading support for fast creation.
-  - Scriptable Object support for saving Tree Data.
+  - Scriptable Object support for saving Tree Data. (Create > 
   
  ![enter image description here](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/TreeData.jpg)
   
@@ -67,5 +67,5 @@ MIT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAxMDk1MzQ1Nl19
+eyJoaXN0b3J5IjpbMjA2Mzk0NzEwMF19
 -->
