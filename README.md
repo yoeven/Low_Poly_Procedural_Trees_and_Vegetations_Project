@@ -3,9 +3,9 @@
 
 A simple low poly procedural tree builder.
 
-![enter image description here](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example1.jpg)
+![](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example1.jpg)
 
-![enter image description here](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example2.jpg)
+![](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example2.jpg)
 
 ![10000 Trees](https://raw.githubusercontent.com/yoeven/Low_Poly_Procedural_Trees_and_Vegetations_Project/master/Screenshots/Example2%2810000%29.jpg)
 
@@ -68,5 +68,5 @@ MIT
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzMTg4NDAwNTRdfQ==
+eyJoaXN0b3J5IjpbOTk5NDU1Mjc0XX0=
 -->
