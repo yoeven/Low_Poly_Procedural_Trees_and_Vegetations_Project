@@ -17,7 +17,7 @@ public class Example2Script : MonoBehaviour {
             for (int y = 0; y < Mathf.RoundToInt(NumberOfTrees / 2); y++)
             {
                 TreeData data = ScriptableObject.CreateInstance<TreeData>();
-                data.RandomiseParameters(1);
+                data.RandomiseParameters();
                 TreeGeneratorManager.instance.RequestTree(data, new Vector3(i * 10, 0, y * 10), callback);
             }
         }
