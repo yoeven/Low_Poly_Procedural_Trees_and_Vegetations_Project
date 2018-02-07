@@ -71,6 +71,7 @@ namespace TreeGen
                 Foliage.AddComponent<MeshFilter>().mesh = plantMesh;
                 Foliage.AddComponent<MeshRenderer>();
                 Foliage.GetComponent<Renderer>().material = new Material(vertexShader);
+                UnityEngine.Random.InitState(ReturnData.TreeData.randomSeed + i);
                 Foliage.transform.localScale *= UnityEngine.Random.Range(ReturnData.TreeData.foliageScaleMin, ReturnData.TreeData.foliageScaleMax);
                 Foliage.transform.position = PlantBuildData[i].position;
                 Foliage.transform.SetParent(treeObject.transform);

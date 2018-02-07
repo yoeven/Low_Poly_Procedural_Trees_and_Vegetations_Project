@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29ce8584c7d898469c48e2f940ceeeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumberOfTrees: 100
+  NumberOfTrees: 20
 --- !u!4 &977211336
 Transform:
   m_ObjectHideFlags: 0

@@ -31,6 +31,9 @@ namespace TreeGen
 
             List<MeshObjectData> Foliages = new List<MeshObjectData>();
 
+            Rand rand;
+            int FolCheckCount = 0;
+
             float maxLength = TraverseMaxLength(root);
             Traverse(root, (branch) =>
             {
@@ -87,7 +90,14 @@ namespace TreeGen
             //plants
             if (branch.Children == null || branch.Children.Count == 0)
                 {
-                    Foliages.Add(CreateFoliage(data, branch, Foliages.Count));
+                    rand = new Rand(FolCheckCount + data.randomSeed);
+                    float chance = rand.Range(0f, 100f);
+                    Debug.Log(chance);
+                    if(chance<=data.foliageChance)
+                    {
+                        Foliages.Add(CreateFoliage(data, branch, Foliages.Count + FolCheckCount));
+                    }
+                    FolCheckCount++;
                 }
 
             });
@@ -140,6 +150,10 @@ namespace TreeGen
         static MeshObjectData CreateFoliage(TreeData data, TreeBranch Branch,int index)
         {
             MeshDraft m = MeshDraft.Sphere(0.5f, data.foliageSegments, data.foliageSegments, false);
+            //MeshDraft m = MeshDraft.Dodecahedron(0.5f);
+            //MeshDraft m = MeshDraft.Icosahedron(0.5f, false);
+            //MeshDraft m = MeshDraft.Prism(0.5f, data.foliageSegments, 0.1f);
+            //MeshDraft m = MeshDraft.Pyramid(0.9f, data.foliageSegments, 0.5f, false);
             MeshObjectData plant = new MeshObjectData();
 
             plant.vertices = m.vertices.ToArray();
@@ -153,7 +167,7 @@ namespace TreeGen
             Vector3 Pos = Branch.To;
             plant.position = Pos;
 
-            int s = data.randomSeed +index+ Mathf.RoundToInt(Pos.x*100) +Mathf.RoundToInt(Pos.y*100) + Mathf.RoundToInt(Pos.z*100) + Mathf.RoundToInt(Branch.Length);
+            int s = data.randomSeed +index+ Mathf.RoundToInt(Pos.x) +Mathf.RoundToInt(Pos.y) + Mathf.RoundToInt(Pos.z) + Mathf.RoundToInt(Branch.Length);
             Rand r = new Rand(s);
             for (int i = 0; i < verts.Length; i++)
             {
@@ -167,9 +181,10 @@ namespace TreeGen
             plant.flatShade();
 
             Color[] vertexColor = new Color[plant.vertices.Length];
+            Color CC = data.foliageColors[r.Range(0, data.foliageColors.Length)];
             for (int c = 0; c < plant.vertices.Length; c++)
             {
-                vertexColor[c] = data.foliageColor;
+                vertexColor[c] = CC;
             }
             plant.colors = vertexColor;
             return plant;

@@ -14,7 +14,8 @@ namespace TreeGen
         [Header("Branch Parameters")]
         [Range(0.25f, 0.95f)] public float lengthAttenuation = 0.8f;
         [Range(0.25f, 0.95f)] public float radiusAttenuation = 0.5f;
-        [Range(1, 3)] public int branchesMin = 1, branchesMax = 2;
+        [Range(1, 3)] public int branchesMin = 1;
+        [Range(1, 3)] public int branchesMax = 2;
         [Range(-45f, 0f)] public float growthAngleMin = -15f;
         [Range(0f, 45f)] public float growthAngleMax = 15f;
         [Range(1f, 10f)] public float growthAngleScale = 4f;
@@ -22,17 +23,18 @@ namespace TreeGen
         [Range(0.0f, 0.35f)] public float bendDegree = 0.1f;
         [Space]
         [Header("Root Parameters")]
-        [Range(1, 2)] public int generations = 2;
+        [Range(1, 4)] public int generations = 4;
         [Range(0.5f, 5f)] public float length = 1f;
         [Range(0.1f, 2f)] public float radius = 0.15f;
         [Space]
         [Header("Foliage Parameters")]
+        [Range(0f, 100f)]public float foliageChance = 100f;
         [Range(5, 30)]public int foliageSegments = 10;
         [Range(0.0f, 0.2f)] public float noise = 0.2f;
         [Range(0.1f, 3f)] public float foliageScaleMin = 1;
         [Range(0.1f, 3f)] public float foliageScaleMax = 3;
         public Color branchColor;
-        public Color foliageColor;
+        public Color[] foliageColors;
 
 
         [HideInInspector] public int RandomBranches;
@@ -89,15 +91,21 @@ namespace TreeGen
             heightSegments = Random.Range(4, 21);
             radialSegments = Random.Range(4, 21);
             bendDegree = Random.Range(0f, 0.35f);
-            generations = Random.Range(1, 3);
+            generations = Random.Range(1, 5);
             length = Random.Range(0.5f, 5f);
             radius = Random.Range(0.1f, 2f);
+            foliageChance = Random.Range(0f, 100f);
             foliageSegments = Random.Range(5,31);
             noise = Random.Range(0f, 0.2f);
             foliageScaleMin = Random.Range(0.1f, 3f);
             foliageScaleMax = Random.Range(0.1f, 3f);
             branchColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1);
-            foliageColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1);
+            int NumOfRandomColor = Random.Range(1, 6);
+            foliageColors = new Color[NumOfRandomColor];
+            for(int i =0;i< NumOfRandomColor;i++)
+            {
+                foliageColors[i] = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1);
+            }
         }
 
     }

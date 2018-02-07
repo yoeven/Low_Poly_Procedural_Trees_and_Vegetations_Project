@@ -13,25 +13,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TreeName: Forest Tree
   randomSeed: 1292
-  lengthAttenuation: 0.856
+  lengthAttenuation: 0.278
   radiusAttenuation: 0.5
-  branchesMin: 0
-  branchesMax: 0
+  branchesMin: 1
+  branchesMax: 1
   growthAngleMin: -15
   growthAngleMax: 15
   growthAngleScale: 4
   heightSegments: 10
   radialSegments: 8
   bendDegree: 0.1
-  generations: 5
-  length: 2.49
+  generations: 1
+  length: 1.64
   radius: 0.15
+  foliageChance: 100
   foliageSegments: 10
   noise: 0.2
   foliageScaleMin: 1
   foliageScaleMax: 3
   branchColor: {r: 0.5411765, g: 0.37254903, b: 0.30588236, a: 1}
-  foliageColor: {r: 0.24313726, g: 0.41960785, b: 0.30588236, a: 1}
-  RandomBranches: 0
+  foliageColors:
+  - {r: 0.24313726, g: 0.41960785, b: 0.30588236, a: 1}
+  RandomBranches: 1
   RandomGrowthAngle: -0.86406994
   RandomBendDegree: 0.06659629
