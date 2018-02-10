@@ -8,8 +8,9 @@ namespace TreeGen
     [CreateAssetMenu(fileName = "TreeData", menuName = "Procedural Generation/Tree Data", order = 1)]
     public class TreeData : ScriptableObject
     {
+        public enum BasePrimitiveShapes { Sphere, Dodecahedron, Icosahedron, Prism, Pyramid };
         public string TreeName = "";
-        public int randomSeed = 0;
+        public int TreeSeed = 0;
         [Space]
         [Header("Branch Parameters")]
         [Range(0.25f, 0.95f)] public float lengthAttenuation = 0.8f;
@@ -28,6 +29,7 @@ namespace TreeGen
         [Range(0.1f, 2f)] public float radius = 0.15f;
         [Space]
         [Header("Foliage Parameters")]
+        public BasePrimitiveShapes FoliageBasePrimitiveShape = BasePrimitiveShapes.Sphere;
         [Range(0f, 100f)]public float foliageChance = 100f;
         [Range(5, 30)]public int foliageSegments = 10;
         [Range(0.0f, 0.2f)] public float noise = 0.2f;
@@ -44,7 +46,7 @@ namespace TreeGen
 
         public void Setup()
         {
-            Random.InitState(randomSeed);
+            Random.InitState(TreeSeed);
             GetRandomBranches();
             GetRandomGrowthAngle();
             GetRandomBendDegree();
@@ -67,16 +69,21 @@ namespace TreeGen
 
         public void RandomiseParameters()
         {
-            randomSeed = Random.Range(0, int.MaxValue);
-            Random.InitState(randomSeed);
+            RandomiseSeed();
+            Random.InitState(TreeSeed);
             randomiseParameters();
         }
 
         public void RandomiseParameters(int seed)
         {
-            randomSeed = seed;
-            Random.InitState(randomSeed);
+            TreeSeed = seed;
+            Random.InitState(TreeSeed);
             randomiseParameters();
+        }
+
+        public void RandomiseSeed()
+        {
+            TreeSeed = Random.Range(0, int.MaxValue);
         }
 
         private void randomiseParameters()

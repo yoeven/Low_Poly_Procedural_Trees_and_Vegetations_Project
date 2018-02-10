@@ -53,7 +53,8 @@ namespace TreeGen
             TreeMesh.RecalculateBounds();
             TreeMesh.RecalculateNormals();
 
-            GameObject treeObject = new GameObject("Tree");
+            string ObjectName = ReturnData.TreeData.TreeName != null && ReturnData.TreeData.TreeName != "" ? ReturnData.TreeData.TreeName : "Woah!, Some kind of random Tree";
+            GameObject treeObject = new GameObject(ObjectName);
             treeObject.AddComponent<MeshFilter>().mesh = TreeMesh;
             treeObject.AddComponent<MeshRenderer>();
             treeObject.GetComponent<Renderer>().material = new Material(vertexShader);
@@ -71,7 +72,7 @@ namespace TreeGen
                 Foliage.AddComponent<MeshFilter>().mesh = plantMesh;
                 Foliage.AddComponent<MeshRenderer>();
                 Foliage.GetComponent<Renderer>().material = new Material(vertexShader);
-                UnityEngine.Random.InitState(ReturnData.TreeData.randomSeed + i);
+                UnityEngine.Random.InitState(ReturnData.TreeData.TreeSeed + i);
                 Foliage.transform.localScale *= UnityEngine.Random.Range(ReturnData.TreeData.foliageScaleMin, ReturnData.TreeData.foliageScaleMax);
                 Foliage.transform.position = PlantBuildData[i].position;
                 Foliage.transform.SetParent(treeObject.transform);

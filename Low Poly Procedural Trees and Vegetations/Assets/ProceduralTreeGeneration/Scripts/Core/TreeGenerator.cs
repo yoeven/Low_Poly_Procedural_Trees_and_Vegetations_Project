@@ -90,7 +90,7 @@ namespace TreeGen
             //plants
             if (branch.Children == null || branch.Children.Count == 0)
                 {
-                    rand = new Rand(FolCheckCount + data.randomSeed);
+                    rand = new Rand(FolCheckCount + data.TreeSeed);
                     float chance = rand.Range(0f, 100f);
                     Debug.Log(chance);
                     if(chance<=data.foliageChance)
@@ -149,11 +149,29 @@ namespace TreeGen
 
         static MeshObjectData CreateFoliage(TreeData data, TreeBranch Branch,int index)
         {
-            MeshDraft m = MeshDraft.Sphere(0.5f, data.foliageSegments, data.foliageSegments, false);
-            //MeshDraft m = MeshDraft.Dodecahedron(0.5f);
-            //MeshDraft m = MeshDraft.Icosahedron(0.5f, false);
-            //MeshDraft m = MeshDraft.Prism(0.5f, data.foliageSegments, 0.1f);
-            //MeshDraft m = MeshDraft.Pyramid(0.9f, data.foliageSegments, 0.5f, false);
+            MeshDraft m;
+            switch (data.FoliageBasePrimitiveShape)
+            {
+                case TreeData.BasePrimitiveShapes.Sphere:
+                    m = MeshDraft.Sphere(0.5f, data.foliageSegments, data.foliageSegments, false);
+                    break;
+                case TreeData.BasePrimitiveShapes.Dodecahedron:
+                    m = MeshDraft.Dodecahedron(0.5f);
+                    break;
+                case TreeData.BasePrimitiveShapes.Icosahedron:
+                    m = MeshDraft.Icosahedron(0.5f, false);
+                    break;
+                case TreeData.BasePrimitiveShapes.Prism:
+                    m = MeshDraft.Prism(0.5f, data.foliageSegments, 0.1f,false);
+                    break;
+                case TreeData.BasePrimitiveShapes.Pyramid:
+                    m = MeshDraft.Pyramid(0.5f, data.foliageSegments, 0.5f, false);
+                    break;
+                default:
+                    m = MeshDraft.Sphere(0.5f, data.foliageSegments, data.foliageSegments, false);
+                    break;
+            }
+
             MeshObjectData plant = new MeshObjectData();
 
             plant.vertices = m.vertices.ToArray();
@@ -163,11 +181,11 @@ namespace TreeGen
 
             Vector3[] verts = plant.vertices;
             float currentNoise = data.noise;
-            currentNoise *= 0.25f;
+            currentNoise *= 0.4f;
             Vector3 Pos = Branch.To;
             plant.position = Pos;
 
-            int s = data.randomSeed +index+ Mathf.RoundToInt(Pos.x) +Mathf.RoundToInt(Pos.y) + Mathf.RoundToInt(Pos.z) + Mathf.RoundToInt(Branch.Length);
+            int s = data.TreeSeed +index+ Mathf.RoundToInt(Pos.x) +Mathf.RoundToInt(Pos.y) + Mathf.RoundToInt(Pos.z) + Mathf.RoundToInt(Branch.Length);
             Rand r = new Rand(s);
             for (int i = 0; i < verts.Length; i++)
             {

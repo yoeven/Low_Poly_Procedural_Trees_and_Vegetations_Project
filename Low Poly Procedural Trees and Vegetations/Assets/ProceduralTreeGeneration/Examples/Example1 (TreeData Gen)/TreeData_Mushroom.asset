@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449a255f1893cf04c8f4e4e75a2f02b3, type: 3}
+  m_Name: TreeData_Mushroom
+  m_EditorClassIdentifier: 
+  TreeName: Mushroom
+  randomSeed: 1292
+  lengthAttenuation: 0.25
+  radiusAttenuation: 0.25
+  branchesMin: 1
+  branchesMax: 1
+  growthAngleMin: -15
+  growthAngleMax: 15
+  growthAngleScale: 4
+  heightSegments: 10
+  radialSegments: 8
+  bendDegree: 0.1
+  generations: 1
+  length: 0.5
+  radius: 0.1
+  FoliageBasePrimitiveShape: 4
+  foliageChance: 100
+  foliageSegments: 10
+  noise: 0.2
+  foliageScaleMin: 0.68
+  foliageScaleMax: 1.53
+  branchColor: {r: 0.89705884, g: 0.7174272, b: 0.64641005, a: 1}
+  foliageColors:
+  - {r: 0.6099632, g: 0.07071801, b: 0.8014706, a: 1}
+  RandomBranches: 1
+  RandomGrowthAngle: -0.86406994
+  RandomBendDegree: 0.06659629
