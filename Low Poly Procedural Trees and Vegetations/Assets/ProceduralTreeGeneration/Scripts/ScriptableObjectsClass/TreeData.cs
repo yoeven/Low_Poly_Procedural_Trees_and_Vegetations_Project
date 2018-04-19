@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace TreeGen
+namespace Gen.Tree
 {
     [CreateAssetMenu(fileName = "TreeData", menuName = "Procedural Generation/Tree Data", order = 1)]
     public class TreeData : ScriptableObject

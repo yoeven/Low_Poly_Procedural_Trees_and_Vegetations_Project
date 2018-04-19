@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TreeGen;
+using Gen.Tree;
 
 public class Example2Script : MonoBehaviour {
 

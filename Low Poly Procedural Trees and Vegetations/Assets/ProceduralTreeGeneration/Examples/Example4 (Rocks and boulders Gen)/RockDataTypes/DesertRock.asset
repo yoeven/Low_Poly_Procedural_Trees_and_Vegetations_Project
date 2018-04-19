@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed94bf3bd1e1b1946a04910d13a530f4, type: 3}
+  m_Name: DesertRock
+  m_EditorClassIdentifier: 
+  RockName: DesertRock
+  RockSeed: 440
+  Segments: 10
+  RockGradientColor: {fileID: 11400000, guid: f9db3ccdcbda7fd4d83fb795482dbe6f, type: 2}
+  RockBasePrimitiveShape: 0
+  octives: 3
+  NoiseType: 0
