@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/ProceduralTreeGeneration/Examples/Example2 (Dynamic Tree Gen)/Example2Scene.unity
+- path: Assets/ProceduralTreeGeneration/Examples/Example4 (Rocks and boulders Gen)/Example4Scene.unity
   isLoaded: 1
   isActive: 1
